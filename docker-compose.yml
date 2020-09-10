@@ -1,0 +1,46 @@
+version: '3'
+
+
+services:
+  backend:
+    build: .
+    ports:
+      - '8000:8000'
+    volumes:
+      - ./src:/code
+    command: python manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - db
+      - rabbitmq
+      
+
+  db:
+    image: postgres
+    container_name: db
+    restart: always
+
+    ports:
+      - '5432:5432'
+
+  celery:
+    build: .
+    container_name: celery
+    restart: always
+    command: celery -A app worker -E -l info
+    depends_on:
+      - rabbitmq
+
+  celerybeat:
+    build: .
+    container_name: celerybeat
+    command: celery -A app beat -l info
+    restart: always
+    depends_on:
+      - rabbitmq
+      - celery
+
+  rabbitmq:
+    image: rabbitmq:3.8-management-alpine
+    restart: always
+    container_name: rabbitmq
+
