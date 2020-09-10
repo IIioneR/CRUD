@@ -38,7 +38,7 @@ Instead of previous way, you can run only docker-compose file
 It Will be started all 4 services.(db, server, rabbitmq, celery)
 ```bash
 $ docker-compose build
-& docker-compose up
+$ docker-compose up
 ```
 The server should run on http://127.0.0.1:8000/ 
 
