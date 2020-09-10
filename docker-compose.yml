@@ -18,12 +18,14 @@ services:
     image: postgres
     container_name: db
     restart: always
-
+    environment:
+      POSTGRES_DB: 'db'
+      POSTGRES_PASSWORD: password
     ports:
       - '5432:5432'
 
   celery:
-    build: .
+    build: ./
     container_name: celery
     restart: always
     command: celery -A app worker -E -l info
