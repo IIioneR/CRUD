@@ -46,4 +46,4 @@ The server should run on http://127.0.0.1:8000/
 ```bash
 $ make format
 ```
-
+> Postman collection link _https://www.getpostman.com/collections/5c36f3c5585268a0a059_
